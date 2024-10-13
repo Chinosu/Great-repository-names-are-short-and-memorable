@@ -1,0 +1,15 @@
+# Ignore node_modules folder
+node_modules/
+
+# Ignore logs
+logs/
+*.log
+
+# Ignore environment variable files
+.env
+
+# Ignore coverage reports (e.g., from testing)
+coverage/
+
+# Ignore build artifacts
+dist/
