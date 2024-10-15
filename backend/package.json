@@ -1,9 +1,0 @@
-{
-  "devDependencies": {
-    "@types/mongoose": "^5.11.96"
-  },
-  "dependencies": {
-    "dotenv": "^16.4.5",
-    "mongoose": "^8.7.1"
-  }
-}
