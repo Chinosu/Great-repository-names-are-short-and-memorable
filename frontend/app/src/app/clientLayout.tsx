@@ -1,6 +1,6 @@
 "use client";
 
-import { blue, grey, orange } from "@mui/material/colors";
+import { blue, grey, } from "@mui/material/colors";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, styled } from "@mui/material/styles";
 import ThemeProvider from "@mui/system/ThemeProvider";
@@ -63,11 +63,11 @@ const ClientLayout: React.FC<{
         main: "rgba(0, 0, 0, 0.12)",
       },
       background: {
-        paper: grey[200],
+        paper: "#ffffff", 
       },
       text: {
         primary: "#000000",
-        secondary: grey[600],
+        secondary: grey[900],
       },
     };
 
