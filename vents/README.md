@@ -6,6 +6,8 @@ Python deps
 - "fastapi[standard]"
 - greenlet
 - "sqlalchemy[asyncio]"
+- python-dotenv
+- google-generativeai
 ```
 
 Python testing deps
