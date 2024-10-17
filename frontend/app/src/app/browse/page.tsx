@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
+import { styled } from '@mui/system';
 import Container from "@mui/material/Container";
 import Grid from '@mui/material/Grid2';
 import Divider from '@mui/material/Divider';  
@@ -10,9 +11,15 @@ import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';  // Checkbox component for multi-select
 import ListItemText from '@mui/material/ListItemText';  // For rendering text next to the checkbox
-import { styled } from '@mui/system';
-import { Main } from "../page";
+import IconButton from '@mui/material/IconButton';  // For icon-only buttons
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';  // Back arrow icon
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';  // Forward arrow icon
+import EventIcon from '@mui/icons-material/Event';
+import GroupIcon from '@mui/icons-material/Group';
+
 import dayjs, { Dayjs } from "dayjs";  // Import Dayjs
+
+import { Main } from "../page";
 import DialogModal from '../components/DialogModal';  
 import DayColumn from '../components/DayColumn';  
 
@@ -31,42 +38,45 @@ const societies = ['CSESoc', 'DataSoc', 'DevSoc', 'BSoc'];
 
 const imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv-0bTXuP2zW4S23dYBit2kCp_Ha9FRdECcA&s";
 
-const events: Event[][] = [
-  [
-    { id: 1, title: "Event 1", startTime: "10:00", endTime: "11:00", description: "Description for Event 1", imageUrl: imgUrl },
-    { id: 2, title: "Event 2", startTime: "12:00", endTime: "13:30", description: "Description for Event 2", imageUrl: imgUrl },
-  ],
-  [
-    { id: 3, title: "Event 3", startTime: "09:00", endTime: "10:00", description: "Description for Event 3", imageUrl: imgUrl },
-    { id: 4, title: "Event 4", startTime: "13:00", endTime: "14:00", description: "Description for Event 4", imageUrl: imgUrl },
-  ],
+// Placeholder events
+const events: Event[] = [
+  { id: 1, title: "Event 1", startTime: "2024-10-18T10:00", endTime: "2024-10-18T11:00", description: "Description for Event 1", imageUrl: imgUrl },
+  { id: 2, title: "Event 2", startTime: "2024-10-19T12:00", endTime: "2024-10-19T13:30", description: "Description for Event 2", imageUrl: imgUrl },
+  { id: 3, title: "Event 3", startTime: "2024-10-20T09:00", endTime: "2024-10-20T10:00", description: "Description for Event 3", imageUrl: imgUrl },
+  { id: 4, title: "Event 4", startTime: "2024-10-21T13:00", endTime: "2024-10-21T14:00", description: "Description for Event 4", imageUrl: imgUrl },
 ];
 
 const Page = () => {
   const [open, setOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  const [weekDays, setWeekDays] = useState<Dayjs[]>([]);  // Store Dayjs objects instead of strings
+
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);  // Multi-select for event types
   const [selectedSocieties, setSelectedSocieties] = useState<string[]>([]);  // Multi-select for societies
+
+  const [weekDays, setWeekDays] = useState<Dayjs[]>([]);  // Store Dayjs objects instead of strings
   const [currentDayIndex, setCurrentDayIndex] = useState<number | null>(null);  // Indicates the current day 
   const [currentMonth, setCurrentMonth] = useState<string>('');  // Current month
+  const [currentWeekOffset, setCurrentWeekOffset] = useState(0);  // Track the current week offset
+
+  const lastMonth = dayjs().subtract(1, 'month').endOf('month');
+  const nextMonth = dayjs().add(1, 'month').startOf('month');
 
   useEffect(() => {
-    const calculateCurrentWeek = () => {
-      const today = dayjs();
-      const monday = today.startOf('week').add(1, 'day');
-      const days = Array.from({ length: 7 }, (_, i) => monday.add(i, 'day'));  // Store Dayjs objects
-      setWeekDays(days);
+    calculateCurrentWeek(currentWeekOffset);
+  }, [currentWeekOffset]);
 
-      // Calculate the current day index based on the current day of the week
-      const currentDay = today.day();  // 0 for Sunday, 1 for Monday, etc.
-      const currentDayIndex = currentDay === 0 ? 6 : currentDay - 1;  // Adjust to 0-indexed, Monday = 0
-      setCurrentDayIndex(currentDayIndex);
-      setCurrentMonth(today.format('MMMM'));  // Get current month in full (e.g., "October")
-    };
+  // Function to calculate the current week based on the offset
+  const calculateCurrentWeek = (weekOffset: number) => {
+    const today = dayjs();
+    const monday = today.startOf('week').add(1, 'day').add(weekOffset, 'week');  
+    const days = Array.from({ length: 7 }, (_, i) => monday.add(i, 'day'));  
+    setWeekDays(days);
 
-    calculateCurrentWeek();
-  }, []);
+    const currentDay = today.day();  
+    const currentDayIndex = currentDay === 0 ? 6 : currentDay - 1;  
+    setCurrentDayIndex(weekOffset === 0 ? currentDayIndex : null);  // Unhighlight if it's not the current week
+    setCurrentMonth(monday.format('MMMM'));  
+  };
 
   const handleEventClick = (event: Event) => {
     setSelectedEvent(event);
@@ -88,19 +98,55 @@ const Page = () => {
     setSelectedSocieties(typeof value === 'string' ? value.split(',') : value);
   };
 
+  // Move to the next week
+  const handleNextWeek = () => {
+    const nextMonday = dayjs().startOf('week').add(1, 'day').add(currentWeekOffset + 1, 'week');
+    if (nextMonday.isBefore(nextMonth)) {
+      setCurrentWeekOffset(currentWeekOffset + 1);  
+      console.log("Fetching events for the next week...");
+    }
+  };
+
+  // Move to the previous week
+  const handlePreviousWeek = () => {
+    const previousMonday = dayjs().startOf('week').add(1, 'day').add(currentWeekOffset - 1, 'week');
+    if (previousMonday.isAfter(lastMonth)) {
+      setCurrentWeekOffset(currentWeekOffset - 1);  
+      console.log("Fetching events for the previous week...");
+    }
+  };
+
+  // Filter events that belong to the current day
+  const getEventsForDay = (day: Dayjs) => {
+    return events.filter(event => {
+      const eventDay = dayjs(event.startTime).startOf('day').isSame(day.startOf('day'));
+      return eventDay;
+    });
+  };
+
   return (
     <Main>
       <Container maxWidth={false}>
+        {/* Current month display */}
+        {/* <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>{currentMonth}</h1> */}
+
         <FilterContainer>
           {/* Multi-Select for Event Type */}
-          <FormControl variant="outlined" style={{ minWidth: 200 }} >
-            <InputLabel>Event Type</InputLabel>
+          <StyledFormControl variant="outlined">
+            <InputLabel sx={{ fontWeight: 'bold', display: 'flex', alignItems: 'center' }}>
+              <EventIcon sx={{ marginRight: '8px' }} /> Event Type
+            </InputLabel>
             <Select
               multiple
               value={selectedTypes}
               onChange={handleTypeChange}
               label="Event Type"
               renderValue={(selected) => (selected as string[]).join(', ')}
+              sx={{
+                '& .MuiSelect-icon': {
+                  color: 'primary.main',  // Use the theme's primary color
+                },
+              }}
             >
               {eventTypes.map((type) => (
                 <MenuItem key={type} value={type}>
@@ -109,17 +155,24 @@ const Page = () => {
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
+          </StyledFormControl>
 
           {/* Multi-Select for Society */}
-          <FormControl variant="outlined" style={{ minWidth: 200, marginLeft: '20px' }}>
-            <InputLabel>Society</InputLabel>
+          <StyledFormControl variant="outlined" sx={{ marginLeft: '20px' }}>
+            <InputLabel sx={{ fontWeight: 'bold', display: 'flex', alignItems: 'center' }}>
+              <GroupIcon sx={{ marginRight: '8px' }} /> Society
+            </InputLabel>
             <Select
               multiple
               value={selectedSocieties}
               onChange={handleSocietyChange}
               label="Society"
               renderValue={(selected) => (selected as string[]).join(', ')}
+              sx={{
+                '& .MuiSelect-icon': {
+                  color: 'primary.main',  // Use the theme's primary color
+                },
+              }}
             >
               {societies.map((society) => (
                 <MenuItem key={society} value={society}>
@@ -128,36 +181,49 @@ const Page = () => {
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
+          </StyledFormControl>
         </FilterContainer>
+
 
         {/* Divider */}
         <Divider style={{ margin: '20px 0' }} />
+
+        {/* Week navigation buttons */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+          <SelectWeekArrow 
+            onClick={handlePreviousWeek} 
+            disabled={dayjs().startOf('week').add(1, 'day').add(currentWeekOffset - 1, 'week').isBefore(lastMonth)}
+          >
+            <ArrowBackIcon />
+          </SelectWeekArrow>
+
+          <SelectWeekArrow 
+            onClick={handleNextWeek} 
+            disabled={dayjs().startOf('week').add(1, 'day').add(currentWeekOffset + 1, 'week').isAfter(nextMonth)}
+          >
+            <ArrowForwardIcon />
+          </SelectWeekArrow>
+        </div>
 
         {/* Event Columns */}
         <Grid container spacing={2}>
           {weekDays.map((day, dayIndex) => (
             <Grid
-            size={12 / 7}
-            key={dayIndex}
-            sx={{
-              padding: '10px',
-              textAlign: 'center',
-            }}
-          >
-            {/* Display Day of the Week (e.g., MON, TUE, WED) */}
-            <DayOfWeek>{day.format('ddd').toUpperCase()}</DayOfWeek>  
-            
-            {/* Display Date of the Month, highlight if it's the current day */}
-            <DayOfMonth
-              isCurrentDay={dayIndex === currentDayIndex}
+              size={12 / 7}
+              key={dayIndex}
+              sx={{
+                padding: '10px',
+                textAlign: 'center',
+              }}
             >
-              {day.format('D')}
-            </DayOfMonth>
-            
-            {/* Event Column */}
-            <DayColumn events={events[dayIndex]} onEventClick={handleEventClick} />
-          </Grid>
+              <DayOfWeek>{day.format('ddd').toUpperCase()}</DayOfWeek>  
+              <DayOfMonth isCurrentDay={dayIndex === currentDayIndex}>
+                {day.format('D')}
+              </DayOfMonth>
+
+              {/* Only display events for this specific day */}
+              <DayColumn events={getEventsForDay(day)} onEventClick={handleEventClick} />
+            </Grid>
           ))}
         </Grid>
 
@@ -169,23 +235,43 @@ const Page = () => {
 };
 
 // Styled component for Day of the Week (e.g., MON, TUE)
-const DayOfWeek = styled('div')({
+const DayOfWeek = styled('div')(({ theme }) => ({
   fontSize: '1.1rem',
   fontWeight: 'bold',
-  color: '#333',
-});
+  color: theme.palette.text.primary, // This will automatically switch between light and dark mode
+}));
 
 // Styled component for Day of the Month (e.g., 18)
-const DayOfMonth = styled('div')<{ isCurrentDay: boolean }>(({ isCurrentDay }) => ({
+const DayOfMonth = styled('div')<{ isCurrentDay: boolean }>(({ isCurrentDay, theme }) => ({
   fontSize: '1.5rem',
   fontWeight: isCurrentDay ? 'bold' : 'normal',
-  color: isCurrentDay ? '#ffffff' : '#333',
-  backgroundColor: isCurrentDay ? '#1976d2' : 'transparent',
+  color: isCurrentDay ? '#ffffff' : theme.palette.text.primary,
+  backgroundColor: isCurrentDay ? "#7041ea" : 'transparent',
   borderRadius: '50%',
   width: '40px',
   height: '40px',
   lineHeight: '40px',
   margin: 'auto',
+}));
+
+const SelectWeekArrow = styled(IconButton)(({ theme }) => ({
+  color: theme.palette.text.primary, // This will automatically switch between light and dark mode
+}));
+
+const StyledFormControl = styled(FormControl)(({ theme }) => ({
+  minWidth: 200,
+  borderRadius: theme.shape.borderRadius,
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: theme.palette.primary.main, // Default border color
+    },
+    '&:hover fieldset': {
+      borderColor: theme.palette.secondary.main, // Border color on hover
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: theme.palette.primary.dark, // Border color on focus
+    },
+  },
 }));
 
 const FilterContainer = styled('div')({

@@ -10,8 +10,11 @@ import { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar/AppBar";
 import { styled } from "@mui/material/styles";
 import { DarkModeContext } from "../clientLayout";
 import { usePathname } from "next/navigation";
-
 import IconButton from "./IconButton";
+
+// Temporary logo import or placeholder
+import LogoIcon from '@mui/icons-material/EmojiEmotions'; // Example logo icon
+
 
 export const navHeight = 65;
 
@@ -26,19 +29,28 @@ const NavBar: React.FC = () => {
         borderBottom: `1px solid ${isDarkMode ? "#2c2c2c" : "#e0e0e0"}`,
         alignItems: "center",
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent: "space-between", // Align items on both ends
+        // width: "100vw", // Take full width of viewport
+        // padding: "0 20px", // Optional: control inner spacing
       }}
     >
 
-      <Stack direction="row" spacing={1}>
-        {/* Some buttons here */}
-        <IconButton
+      {/* Logo on the left side */}
+      <Stack direction="row" alignItems="center">
+        {/* Temporary logo */}
+        <LogoIcon sx={{ fontSize: 40 }} />
+      </Stack>
+
+      {/* Buttons on the right side */}
+      <Stack direction="row" spacing={1} alignItems="center">
+        {/* <IconButton
           aria-label="Home page"
           active={path === "/"}
           href="/"
         >
           <HomeIcon />
-        </IconButton>
+        </IconButton> */}
+
         <IconButton
           aria-label="Browse events"
           active={path === "/browse"}
@@ -46,11 +58,10 @@ const NavBar: React.FC = () => {
         >
           <GridIcon />
         </IconButton>
-        {/* <IconButton active={isDarkMode} onClick={toggleDarkMode}>
+        <IconButton active={isDarkMode} onClick={toggleDarkMode}>
           <DarkMode />
-        </IconButton> */}
+        </IconButton>
       </Stack>
-
     </AppBar>
   );
 }
@@ -65,8 +76,8 @@ const AppBar = styled(MuiAppBar)<MuiAppBarProps>(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  justifyContent: "center",
-  padding: theme.spacing(0.5, 2),
+  justifyContent: "space-between", // Align items across the full width
+  padding: theme.spacing(2, 2),
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,

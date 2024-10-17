@@ -18,6 +18,17 @@ export const DarkModeContext = createContext({
   toggleDarkMode: () => {},
 });
 
+import { GlobalStyles } from '@mui/material';
+
+const GlobalTextStyles = () => (
+  <GlobalStyles styles={(theme) => ({
+    body: {
+      color: theme.palette.text.primary,
+      backgroundColor: theme.palette.background.default,
+    },
+  })} />
+);
+
 /**
  * ClientLayout Component
  * 
@@ -53,7 +64,7 @@ const ClientLayout: React.FC<{
   const theme = useMemo(() => {
     const commonPalette = {
       primary: {
-        main: blue[600],
+        main: "#7041ea", // Purple
       },
     };
 
@@ -63,7 +74,8 @@ const ClientLayout: React.FC<{
         main: "rgba(0, 0, 0, 0.12)",
       },
       background: {
-        paper: "#ffffff", 
+        default: "#f2f2f5", // Light purple tone grey
+        paper: "#f0edf2", 
       },
       text: {
         primary: "#000000",
@@ -82,7 +94,7 @@ const ClientLayout: React.FC<{
       },
       text: {
         primary: "#ffffff",
-        secondary: grey[400],
+        secondary: grey[200],
       },
     };
 
@@ -95,6 +107,7 @@ const ClientLayout: React.FC<{
     <DarkModeContext.Provider value={toggle}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <GlobalTextStyles />
         <ReduxProvider store={store}>
           <App>{children}</App>
         </ReduxProvider>
@@ -121,7 +134,6 @@ const App: React.FC<{
   return (
     <>
       <NavBar />
-      {/* <Scheduler /> */}
       <Main>{children}</Main>
     </>
   );
