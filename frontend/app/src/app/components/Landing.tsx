@@ -2,6 +2,7 @@ import React from 'react';
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from 'react-router-dom';
+import Calendar from './Calendar';
 
 /**
  * Landing Component
@@ -32,6 +33,7 @@ const Landing: React.FC = () => {
               <button className="explore-btn">
                 Explore Events
               </button>
+              <Calendar/>
             </div>
           </div>
         </div>

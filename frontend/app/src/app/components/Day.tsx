@@ -2,11 +2,8 @@ import { useState, useEffect } from 'react';
 import Event from './Event';
 
 
-// AP: idk if this is correct - just copied
-const URL: string = 'https://api.example.com'
-const PORT: number = 31415; // just Pi for now
-const SERVER_URL = `${URL}:${PORT}`;
-
+// AP: idk if this is correct - trying lol
+const SERVER_URL = `http://events.chinosu.com`;
 
 type DayProps = {
   date: Date;
@@ -27,8 +24,8 @@ function Day({ date }: DayProps) {
         endDate.setHours(23, 59, 59, 999);
 
         const response = await fetch(
-          `${SERVER_URL}/events?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
-          // `https://api.example.com/events?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}` // AP: original
+          // `/api/event?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
+          `/api/helloworld`
         );
         const data = await response.json();
         setEvents(data);
@@ -49,7 +46,8 @@ function Day({ date }: DayProps) {
         <p>Loading events...</p>
       ) : events.length > 0 ? (
         // events.map((event) => <Event key={event.id} event={event} />) // AP: has key id which doesn't exist
-        events.map((event) => <Event event={event} />)
+        // events.map((event) => <Event event={event} />)
+        events.map((event) => <p>{event}</p>)
       ) : (
         <p>No events for this day.</p>
       )}
