@@ -46,9 +46,9 @@ const NavBar: React.FC = () => {
         >
           <GridIcon />
         </IconButton>
-        <IconButton active={isDarkMode} onClick={toggleDarkMode}>
+        {/* <IconButton active={isDarkMode} onClick={toggleDarkMode}>
           <DarkMode />
-        </IconButton>
+        </IconButton> */}
       </Stack>
 
     </AppBar>

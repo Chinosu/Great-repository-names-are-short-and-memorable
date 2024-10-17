@@ -26,13 +26,14 @@ const Landing: React.FC = () => {
               Your go-to platform for discovering UNSW society events. 
               Stay updated with the latest happenings around campus, and get involved!
             </p>
+            
             <div className="landing-buttons">
-              <button className="login-btn">
+              {/* <button className="login-btn">
                 Log In
               </button>
               <button className="explore-btn">
                 Explore Events
-              </button>
+              </button> */}
               <Calendar/>
             </div>
           </div>

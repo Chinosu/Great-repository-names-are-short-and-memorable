@@ -121,6 +121,7 @@ const App: React.FC<{
   return (
     <>
       <NavBar />
+      {/* <Scheduler /> */}
       <Main>{children}</Main>
     </>
   );

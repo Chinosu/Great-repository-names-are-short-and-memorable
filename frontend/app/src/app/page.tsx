@@ -15,9 +15,9 @@ const Home = () => {
   );
 };
 
-const Main = styled(Stack)(({ theme }) => ({
+export const Main = styled(Stack)(({ theme }) => ({
   flexGrow: 1,
-  padding: theme.spacing(12, 0),
+  padding: theme.spacing(12, 12),
 }));
 
 export default Home;
