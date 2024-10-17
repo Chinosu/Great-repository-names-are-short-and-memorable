@@ -13,6 +13,7 @@ from pydantic import BaseModel, ConfigDict
 
 class BaseEvent(BaseModel):
     data: str
+    when: datetime
 
 
 class CreateEvent(BaseEvent):
@@ -22,7 +23,6 @@ class CreateEvent(BaseEvent):
 class Event(BaseEvent):
     model_config = ConfigDict(from_attributes=True)
     id: str
-    create_date: datetime
     sub_items: List[SubItem] = []
 
 

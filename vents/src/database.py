@@ -46,7 +46,8 @@ class Event(Base):
         primary_key=True, default=lambda: uuid4().hex
     )
     data: Mapped[str]
-    create_date: Mapped[datetime] = mapped_column(server_default=func.now())
+    # when: Mapped[datetime] = mapped_column(server_default=func.now())
+    when: Mapped[datetime]
     sub_items: Mapped[List[SubItem]] = relationship()
 
 
@@ -89,7 +90,7 @@ async def select_and_update_objects(
 
         for event in result.scalars():
             print(event, event.data)
-            print(f"Created at: {event.create_date}")
+            print(f"Created at: {event.when}")
             for sub_item in event.sub_items:
                 print(sub_item, sub_item.data)
 
