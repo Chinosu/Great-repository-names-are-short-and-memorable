@@ -48,7 +48,10 @@ const NavBar: React.FC = () => {
         <Button aria-label="Home page" href="/">
           <LogoIcon sx={{ fontSize: 40 }} />
         </Button>
+      </Stack>
 
+      {/* Buttons on the right side */}
+      <Stack direction="row" spacing={1} alignItems="center">
         {/* Use Link for navigation */}
         <Link href="/submit" passHref>
           <Button
@@ -59,10 +62,6 @@ const NavBar: React.FC = () => {
             Submit an event
           </Button>
         </Link>
-      </Stack>
-
-      {/* Buttons on the right side */}
-      <Stack direction="row" spacing={1} alignItems="center">
         <IconButton active={isDarkMode} onClick={toggleDarkMode}>
           <DarkMode />
         </IconButton>

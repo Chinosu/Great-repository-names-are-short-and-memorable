@@ -6,9 +6,17 @@ import { createTheme, styled } from "@mui/material/styles";
 import ThemeProvider from "@mui/system/ThemeProvider";
 import React, { createContext, useEffect, useMemo, useState } from "react";
 import { Provider as ReduxProvider } from "react-redux";
+import { GlobalStyles } from '@mui/material';
 
 import NavBar, { navHeight } from "./components/NavBar";
 import store from "./redux/store";
+
+// 1. Extend TypeBackground to include 'image'
+declare module '@mui/material/styles' {
+  interface TypeBackground {
+    image: string;
+  }
+}
 
 /**
  * This context provides the current dark mode setting and a toggle function to switch between light and dark modes.
@@ -18,15 +26,19 @@ export const DarkModeContext = createContext({
   toggleDarkMode: () => {},
 });
 
-import { GlobalStyles } from '@mui/material';
-
-const GlobalTextStyles = () => (
-  <GlobalStyles styles={(theme) => ({
-    body: {
-      color: theme.palette.text.primary,
-      backgroundColor: theme.palette.background.default,
-    },
-  })} />
+const GlobalTextStyles = ({ backgroundImage }: { backgroundImage: string }) => (
+  <GlobalStyles
+    styles={(theme) => ({
+      body: {
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.background.default,
+        backgroundImage: `url(${backgroundImage})`,  // Apply the background image
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      },
+    })}
+  />
 );
 
 /**
@@ -72,6 +84,7 @@ const ClientLayout: React.FC<{
       background: {
         default: "#F4F4F9", // Light purple tone grey
         paper: "#F8F8FB", 
+        image: "https://media.discordapp.net/attachments/1293466131184746547/1296828050121560134/image.png?ex=6713b4bd&is=6712633d&hm=802cfc92256f3e335de5493e787e128379e54586d7f32289e8bfeab0da18cb18&=&format=webp&quality=lossless&width=2228&height=1268",
       },
       text: {
         primary: "#2D2D34",
@@ -89,6 +102,7 @@ const ClientLayout: React.FC<{
       background: {
         default: "#1A1A1A",
         paper: "#F8F8FB",
+        image: "https://media.discordapp.net/attachments/1293466131184746547/1296827693127569459/background.png?ex=6713b467&is=671262e7&hm=7c2a1e9c67315682c0bd2e4fa0ea6e2869e8d0f6180de159a5da55b1b1d520a3&=&format=webp&quality=lossless&width=2256&height=1268",
       },
       text: {
         primary: "#2D2D34",
@@ -105,7 +119,7 @@ const ClientLayout: React.FC<{
     <DarkModeContext.Provider value={toggle}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <GlobalTextStyles />
+        <GlobalTextStyles backgroundImage={theme.palette.background.image} />
         <ReduxProvider store={store}>
           <App>{children}</App>
         </ReduxProvider>
