@@ -57,5 +57,14 @@ export const events: Event[] = [
     "description": "CSESoc Shell hoodies are now available for order! Don’t let this wave pass by, grab your hoodie before they're all gone! The general release is open from NOW to 11:59PM on Friday, 18 October.",
     "host": "CSESoc UNSW",
     "imageUrl": "https://scontent.fcbr1-1.fna.fbcdn.net/v/t39.30808-6/462221120_1045429977366613_3924200758993686299_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=75d36f&_nc_ohc=tt-N_Bd5fd4Q7kNvgGavqF-&_nc_zt=23&_nc_ht=scontent.fcbr1-1.fna&_nc_gid=A5g1w9jaokts-Ygcc2qDVfw&oh=00_AYD-EoAj30UgQlkE6obuMDpbnIbL5xt2XSxh13RqlwiJbA&oe=6717E8E4"
-  }
+  },
+  {
+    "id": 7,
+    "title": "T1 vs TES",
+    "startTime": "2024-10-25T23:59:00",
+    "endTime": "2024-10-25T23:59:00",
+    "description": "Are you a passionate and motivated individual looking to inspire, lead and impact the community alongside a tight knit team? WELL... DataSoc Director Applications for 2024 are now OPEN. DataSoc has ambitious goals set for 2025 and we are on the hunt for extraordinary individuals to lead our team. Positions available: 2x HR, 2x Social, 2x Education, 2x Philanthropy, 2x Careers, 2x Sponsorships, 2x Marketing, 2x Media, 2x IT. Applications close midnight on the 25th of October.",
+    "host": "UNSW Data Science Society",
+    "imageUrl": "https://i.ytimg.com/vi/N_gcDgIQYkQ/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDUZd7NDRzJ8U1RDthIA7SPbl632g"
+  },
 ]

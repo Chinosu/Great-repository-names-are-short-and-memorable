@@ -15,6 +15,15 @@ import IconButton from "./DarkModeButton";
 import LogoIcon from '@mui/icons-material/EmojiEmotions'; // Example logo icon
 import { Button } from "@mui/material";
 
+// Create a styled button
+const CustomButton = styled(Button)(({ theme }) => ({
+  fontFamily: 'Trebuchet MS',
+  fontSize: '16px',
+  color: theme.palette.primary.main, // Change color as needed
+  // Add any other styles you want
+}));
+
+import Link from 'next/link'; // Import Link from next/router
 
 export const navHeight = 65;
 
@@ -31,18 +40,25 @@ const NavBar: React.FC = () => {
         backgroundColor: isDarkMode ? "#0d0d0d" : "#F8F8FB",
         alignItems: "center",
         display: "flex",
-        justifyContent: "space-between", // Align items on both ends
-        // width: "100vw", // Take full width of viewport
-        // padding: "0 20px", // Optional: control inner spacing
+        justifyContent: "space-between",
       }}
     >
-
       {/* Logo on the left side */}
       <Stack direction="row" alignItems="center">
-        {/* Temporary logo */}
         <Button aria-label="Home page" href="/">
           <LogoIcon sx={{ fontSize: 40 }} />
         </Button>
+
+        {/* Use Link for navigation */}
+        <Link href="/submit" passHref>
+          <Button
+            sx={{
+              fontFamily: '"Helvetica", sans-serif',
+            }}
+          >
+            Submit an event
+          </Button>
+        </Link>
       </Stack>
 
       {/* Buttons on the right side */}
@@ -53,8 +69,7 @@ const NavBar: React.FC = () => {
       </Stack>
     </AppBar>
   );
-}
-
+};
 /**
  * Styled AppBar component that defines the main navigation bar's appearance.
  */

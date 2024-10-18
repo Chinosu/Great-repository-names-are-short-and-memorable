@@ -15,6 +15,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';  // Back arrow icon
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';  // Forward arrow icon
 import EventIcon from '@mui/icons-material/Event';
 import GroupIcon from '@mui/icons-material/Group';
+import { getEvents, postEvents } from './requests';
 
 import dayjs, { Dayjs } from "dayjs";  // Import Dayjs
 
@@ -39,7 +40,7 @@ console.log(events)
 const eventTypes = ['Workshop', 'Free BBQ', 'Social', 'Competition'];
 const societies = ['CSESoc', 'DataSoc', 'DevSoc', 'BSoc'];
 
-const bannerImgUrl = "https://www.events.unsw.edu.au/sites/default/files/styles/event_header_image/public/2024-07/Policymaker%20Summit%20Banner%20%28blue%29.png?itok=6Q3JIJfX";  // Replace with the actual URL
+const bannerImgUrl = "https://scriptmag.com/.image/t_share/MjAxMjYxODQ3NzgzOTQxNjMz/touchinggrass-canva.png";  // Replace with the actual URL
 
 const Home = () => {
   const [open, setOpen] = useState(false);
@@ -151,7 +152,7 @@ const Home = () => {
       {/* Banner component */}
       <Banner   
         imageUrl={bannerImgUrl} 
-        title="" 
+        title="Edit this to whatever our app name is" 
         subtitle="" 
       />
 

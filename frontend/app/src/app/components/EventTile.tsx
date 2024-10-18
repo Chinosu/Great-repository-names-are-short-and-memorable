@@ -20,7 +20,12 @@ const EventTile = ({ event, onClick }: { event: Event, onClick: () => void }) =>
         <img src={event.imageUrl || "https://via.placeholder.com/150"} alt={event.title} />
       </ImageSection>
       <TextSection>
-        <EventTime>{formatTime(event.startTime)} - {formatTime(event.endTime)}</EventTime>
+      {/* if the start time = end time, then only display start time */}
+      <EventTime>
+        {event.startTime === event.endTime 
+          ? formatTime(event.startTime) 
+          : `${formatTime(event.startTime)} - ${formatTime(event.endTime)}`}
+      </EventTime>
         <EventTitle>{event.title}</EventTitle>
       </TextSection>
     </Tile>
@@ -66,10 +71,9 @@ const ImageSection = styled("div")({
 
 const TextSection = styled("div")({
   width: "100%",
-  height: "55%",
+  height: "90%",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
   alignItems: "center",
   padding: "10px",
 });
