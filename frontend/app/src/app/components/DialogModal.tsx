@@ -7,7 +7,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Fade from "@mui/material/Fade";  // Import the Fade transition
 import Button from "@mui/material/Button";
 import { styled } from '@mui/system';
-import { Event } from '../browse/page';  // Updated import for Event type
+import { Event } from '../page';  // Updated import for Event type
 import dayjs from 'dayjs';
 
 // Format function for date display

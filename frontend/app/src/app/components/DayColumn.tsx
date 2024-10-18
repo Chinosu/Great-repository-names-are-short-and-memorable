@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { Event } from '../browse/page';
+import { Event } from '../page';
 import EventTile from '../components/EventTile';
 import { styled } from '@mui/system';
 

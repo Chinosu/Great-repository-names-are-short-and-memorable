@@ -9,7 +9,7 @@ import { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar/AppBar";
 import { styled } from "@mui/material/styles";
 import { DarkModeContext } from "../clientLayout";
 import { usePathname } from "next/navigation";
-import IconButton from "./IconButton";
+import IconButton from "./DarkModeButton";
 
 // Temporary logo import or placeholder
 import LogoIcon from '@mui/icons-material/EmojiEmotions'; // Example logo icon
@@ -26,7 +26,9 @@ const NavBar: React.FC = () => {
     <AppBar
       position="fixed"
       sx={{
-        borderBottom: `1px solid ${isDarkMode ? "#2c2c2c" : "#e0e0e0"}`,
+        // borderBottom: `1px solid ${isDarkMode ? "#2c2c2c" : "#e0e0e0"}`,
+        // backgroundColor: isDarkMode ? "rgba(0, 0, 0, 0.5)" : "rgba(255, 255, 255, 0.5)", // 50% transparency
+        backgroundColor: isDarkMode ? "black" : "#F8F8FB",
         alignItems: "center",
         display: "flex",
         justifyContent: "space-between", // Align items on both ends
@@ -45,39 +47,6 @@ const NavBar: React.FC = () => {
 
       {/* Buttons on the right side */}
       <Stack direction="row" spacing={1} alignItems="center">
-        {/* <IconButton
-          aria-label="Home page"
-          active={path === "/"}
-          href="/"
-        >
-          <HomeIcon />
-        </IconButton> */}
-
-        <IconButton
-          aria-label="Browse events"
-          active={path === "/browse"}
-          href="/browse"
-        >
-          <GridIcon />
-        </IconButton>
-
-        {/* "Browse events" button with hover underline */}
-        {/* <Button
-          href="/browse"
-          sx={{
-            textTransform: "none", // Keep the text in normal case
-            fontSize: "16px",
-            fontWeight: "bold",
-            color: isDarkMode ? "#ffffff" : "#000000", // Dynamic color based on theme
-            '&:hover': {
-              textDecoration: 'underline',
-              backgroundColor: 'transparent', // Prevent background on hover
-            },
-          }}
-        >
-          Browse events
-        </Button> */}
-
         <IconButton active={isDarkMode} onClick={toggleDarkMode}>
           <DarkMode />
         </IconButton>
@@ -90,7 +59,6 @@ const NavBar: React.FC = () => {
  * Styled AppBar component that defines the main navigation bar's appearance.
  */
 const AppBar = styled(MuiAppBar)<MuiAppBarProps>(({ theme }) => ({
-  background: 'white',
   color: theme.palette.getContrastText(theme.palette.background.default),
   boxShadow: "none",
   display: "flex",

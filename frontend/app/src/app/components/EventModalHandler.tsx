@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DialogModal from './DialogModal';
-import { Event } from '../browse/page';
+import { Event } from '../page';
 
 interface EventModalHandlerProps {
   events: Event[];
