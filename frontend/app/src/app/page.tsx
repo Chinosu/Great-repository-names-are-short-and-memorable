@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { styled } from '@mui/system';
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { FormControl, InputLabel, MenuItem, Checkbox, ListItemText } from '@mui/material';
 import Container from "@mui/material/Container";
 import Grid from '@mui/material/Grid2';
@@ -128,7 +128,7 @@ const Home = () => {
       <Banner imageUrl={bannerImgUrl} title="Made for Those Who Do" subtitle="Subtitle or additional information here" />
 
       <Main>
-        <Container  maxWidth={false}>
+        <Container maxWidth={false}>
           {/* Current month display */}
           {/* <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>{currentMonth}</h1> */}
 
@@ -239,10 +239,23 @@ const Home = () => {
                   textAlign: 'center',
                 }}
               >
-                <DayOfWeek>{day.format('ddd').toUpperCase()}</DayOfWeek>  
-                <DayOfMonth isCurrentDay={dayIndex === currentDayIndex}>
-                  {day.format('D')}
-                </DayOfMonth>
+                <Box
+                  sx={{
+                    backgroundColor: '#F8F8FB',
+                    padding: '8px',
+                    borderRadius: '8px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    marginBottom: '24px', // Adjust the gap below the box
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  // Added subtle shadow
+                  }}
+                >
+                  <DayOfWeek>{day.format('ddd').toUpperCase()}</DayOfWeek>
+                  <DayOfMonth isCurrentDay={dayIndex === currentDayIndex}>
+                    {day.format('D')}
+                  </DayOfMonth>
+                </Box>
 
                 {/* Only display events for this specific day */}
                 <DayColumn events={getEventsForDay(day)} onEventClick={handleEventClick} />
@@ -269,8 +282,8 @@ const DayOfWeek = styled('div')(({ theme }) => ({
 const DayOfMonth = styled('div')<{ isCurrentDay: boolean }>(({ isCurrentDay, theme }) => ({
   fontSize: '1.5rem',
   fontWeight: isCurrentDay ? 'bold' : 'normal',
-  color: isCurrentDay ? '#ffffff' : theme.palette.text.primary,
-  backgroundColor: isCurrentDay ? "#7041ea" : 'transparent',
+  color: isCurrentDay ? 'white' : theme.palette.text.primary,
+  backgroundColor: isCurrentDay ? theme.palette.primary.main : 'transparent',
   borderRadius: '50%',
   width: '40px',
   height: '40px',
@@ -279,13 +292,13 @@ const DayOfMonth = styled('div')<{ isCurrentDay: boolean }>(({ isCurrentDay, the
 }));
 
 const SelectWeekArrow = styled(IconButton)(({ theme }) => ({
-  color: theme.palette.text.primary, // This will automatically switch between light and dark mode
+  color: theme.palette.primary.main, // This will automatically switch between light and dark mode
 }));
 
 const StyledFormControl = styled(FormControl)(({ theme }) => ({
   minWidth: 200,
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: '#ffffff',  // White background
+  backgroundColor: '#F8F8FB',  // White background
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
       borderColor: theme.palette.primary.main, // Default border color
@@ -309,7 +322,7 @@ const HeaderRow = styled('div')({
 const UpcomingText = styled('h2')(({ theme }) => ({
   fontWeight: 'bold',
   fontSize: '2.5rem',  // Increased size for bigger text
-  color: theme.palette.text.primary,       // You can adjust the color as needed
+  color: theme.palette.secondary.main,       // You can adjust the color as needed
   margin: 0,
   display: 'flex',     // Flexbox for better alignment
   alignItems: 'center',  // Center the text vertically
@@ -330,7 +343,7 @@ const FilterContainer = styled('div')({
 
 export const Main = styled(Stack)(({ theme }) => ({
   flexGrow: 1,
-  padding: theme.spacing(20, 20),
+  padding: theme.spacing(20, 32),
 }));
 
 export default Home;

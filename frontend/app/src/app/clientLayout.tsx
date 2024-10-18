@@ -44,7 +44,7 @@ const GlobalTextStyles = () => (
 const ClientLayout: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  const [mode, setMode] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
     setMode((localStorage.getItem("darkMode") as any) || "light");
@@ -62,39 +62,37 @@ const ClientLayout: React.FC<{
   );
 
   const theme = useMemo(() => {
-    const commonPalette = {
-      primary: {
-        main: "#7041ea", // Purple
-      },
-    };
-
     const lightPalette = {
-      ...commonPalette,
+      primary: {
+        main: "#7B61FF", // Purple
+      },
       secondary: {
-        main: "rgba(0, 0, 0, 0.12)",
+        main: "#1A1A1A",
       },
       background: {
-        default: "#f2f2f5", // Light purple tone grey
-        paper: "#f0edf2", 
+        default: "#F4F4F9", // Light purple tone grey
+        paper: "#F8F8FB", 
       },
       text: {
-        primary: "#000000",
-        secondary: grey[900],
+        primary: "#2D2D34",
+        secondary: "#4F4F57",
       },
     };
 
     const darkPalette = {
-      ...commonPalette,
+      primary: {
+        main: "#9A86FF", // Purple
+      },
       secondary: {
-        main: grey[800],
+        main: "#F8F8FB",
       },
       background: {
-        default: "#101214",
-        paper: grey[800],
+        default: "#1A1A1A",
+        paper: "#F8F8FB",
       },
       text: {
-        primary: "#ffffff",
-        secondary: grey[200],
+        primary: "#2D2D34",
+        secondary: "#4F4F57",
       },
     };
 
