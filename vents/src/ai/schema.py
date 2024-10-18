@@ -11,6 +11,18 @@ from itertools import dropwhile, takewhile
 from re import match
 
 
+class Tags(TypedDict):
+    career_development_and_education: bool
+    video_games: bool
+    online: bool
+    food: bool
+    weekly_meetup: bool
+    competition: bool
+    sport: bool
+    socialising: bool
+    religious: bool
+
+
 class Event(TypedDict):
     title: str
     description: str
@@ -18,6 +30,7 @@ class Event(TypedDict):
     start: datetime
     end: datetime
     location: str
+    tags: list[Tags]
 
 
 result = []

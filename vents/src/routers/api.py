@@ -35,9 +35,11 @@ async def post_event(
         start=event.start,
         end=event.end,
         location=event.location,
+        tags=",".join(event.tags),
     )
     session.add_all([event])
     await session.commit()
+
     return schemas.Event.model_validate(event)
 
 
