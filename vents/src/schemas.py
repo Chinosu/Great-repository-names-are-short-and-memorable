@@ -12,8 +12,12 @@ from pydantic import BaseModel, ConfigDict
 
 
 class BaseEvent(BaseModel):
-    data: str
-    when: datetime
+    title: str
+    description: str
+    host: str
+    start: datetime
+    end: datetime
+    location: str
 
 
 class CreateEvent(BaseEvent):
@@ -23,18 +27,3 @@ class CreateEvent(BaseEvent):
 class Event(BaseEvent):
     model_config = ConfigDict(from_attributes=True)
     id: str
-    sub_items: List[SubItem] = []
-
-
-class BaseSubItem(BaseModel):
-    data: str
-
-
-class CreateSubItem(BaseSubItem):
-    pass
-
-
-class SubItem(BaseSubItem):
-    model_config = ConfigDict(from_attributes=True)
-    id: str
-    event_id: str

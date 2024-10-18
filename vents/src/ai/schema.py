@@ -12,10 +12,12 @@ from re import match
 
 
 class Event(TypedDict):
-    when: datetime
-    location: str
+    title: str
     description: str
     host: str
+    start: datetime
+    end: datetime
+    location: str
 
 
 result = []
