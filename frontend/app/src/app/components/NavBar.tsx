@@ -14,6 +14,7 @@ import IconButton from "./IconButton";
 
 // Temporary logo import or placeholder
 import LogoIcon from '@mui/icons-material/EmojiEmotions'; // Example logo icon
+import { Button } from "@mui/material";
 
 
 export const navHeight = 65;
@@ -38,7 +39,9 @@ const NavBar: React.FC = () => {
       {/* Logo on the left side */}
       <Stack direction="row" alignItems="center">
         {/* Temporary logo */}
-        <LogoIcon sx={{ fontSize: 40 }} />
+        <Button aria-label="Home page" href="/">
+          <LogoIcon sx={{ fontSize: 40 }} />
+        </Button>
       </Stack>
 
       {/* Buttons on the right side */}
