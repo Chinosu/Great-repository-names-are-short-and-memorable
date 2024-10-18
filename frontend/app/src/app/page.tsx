@@ -29,6 +29,8 @@ export interface Event {
   imageUrl?: string;  
 }
 
+// const SERVER_URL = 'http://events.chinosu.com';
+
 // Placeholder data for event types and societies
 const eventTypes = ['Workshop', 'Free BBQ', 'Social', 'Competition'];
 const societies = ['CSESoc', 'DataSoc', 'DevSoc', 'BSoc'];
@@ -116,16 +118,47 @@ const Home = () => {
 
   // Filter events that belong to the current day
   const getEventsForDay = (day: Dayjs) => {
+    // fetchEvents(day);
     return events.filter(event => {
       const eventDay = dayjs(event.startTime).startOf('day').isSame(day.startOf('day'));
       return eventDay;
     });
   };
 
+  // async function fetchEvents(day: Dayjs) {
+  //   try {
+  //     // Set start and end time for the specific day (midnight to midnight)
+  //     const startDate = day.startOf('day').toISOString();
+  //     const endDate = day.endOf('day').toISOString();
+  
+  //     // Fetch events for this day using the API
+  //     const response = await fetch(`/api/event?startDate=${startDate}&endDate=${endDate}`);
+  //     const data = await response.json();  // Assuming the API returns a string
+      
+  //     console.log(data);
+  //     // // Parse the string into events
+  //     // const parsedEvents = parseEventsString(data);
+  
+  //     // // Filter events that belong to the specific day
+  //     // return parsedEvents.filter(event => {
+  //     //   const eventDay = dayjs(event.startTime).startOf('day').isSame(day.startOf('day'));
+  //     //   return eventDay;
+  //     // });
+  //     return [];
+  //   } catch (error) {
+  //     console.error('Error fetching events:', error);
+  //     return [];
+  //   }
+  // };
+
   return (
     <Container maxWidth={false}>
       {/* Banner component */}
-      <Banner imageUrl={bannerImgUrl} title="Made for Those Who Do" subtitle="Subtitle or additional information here" />
+      <Banner   
+        imageUrl={bannerImgUrl} 
+        title="" 
+        subtitle="" 
+      />
 
       <Main>
         <Container maxWidth={false}>
@@ -148,11 +181,6 @@ const Home = () => {
                     onChange={handleTypeChange}
                     label="Event Type"
                     renderValue={(selected) => (selected as string[]).join(', ')}
-                    // sx={{
-                    //   '& .MuiSelect-icon': {
-                    //     color: 'primary.main',  // Use the theme's primary color
-                    //   },
-                    // }}
                     MenuProps={{
                       PaperProps: {
                         sx: {
@@ -182,11 +210,6 @@ const Home = () => {
                     onChange={handleSocietyChange}
                     label="Society"
                     renderValue={(selected) => (selected as string[]).join(', ')}
-                    sx={{
-                      '& .MuiSelect-icon': {
-                        color: 'white',  // Use the theme's primary color
-                      },
-                    }}
                     MenuProps={{
                       PaperProps: {
                         sx: {

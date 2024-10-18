@@ -25,8 +25,8 @@ function Day({ date }: DayProps) {
 
         const response = await fetch(
           // NOTE: the "/api" prefix is rewritten in next.config.mjs to http://events.chinosu.com/ to avoid a CORS (security) error from the browser
-          // `/api/event?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
-          `/api/helloworld`
+          `/api/event?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
+          // `/api/helloworld`
         );
         const data = await response.json();
         setEvents(data);
