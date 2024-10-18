@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useContext } from "react";
-import HomeIcon from '@mui/icons-material/Home';
 import GridIcon from "@mui/icons-material/GridViewRounded";
 import { DarkMode } from "@mui/icons-material";
 import Stack from "@mui/material/Stack";
@@ -91,7 +90,7 @@ const NavBar: React.FC = () => {
  * Styled AppBar component that defines the main navigation bar's appearance.
  */
 const AppBar = styled(MuiAppBar)<MuiAppBarProps>(({ theme }) => ({
-  background: theme.palette.background.default,
+  background: 'white',
   color: theme.palette.getContrastText(theme.palette.background.default),
   boxShadow: "none",
   display: "flex",
