@@ -15,6 +15,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';  // Back arrow icon
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';  // Forward arrow icon
 import EventIcon from '@mui/icons-material/Event';
 import GroupIcon from '@mui/icons-material/Group';
+import { getEvents, postEvents } from './requests';
 
 import dayjs, { Dayjs } from "dayjs";  // Import Dayjs
 
