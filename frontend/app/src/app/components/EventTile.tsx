@@ -50,7 +50,7 @@ const Tile = styled("div")(({ theme }) => ({
 
 const ImageSection = styled("div")({
   width: "100%",
-  height: "50%",
+  height: "45%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -66,7 +66,7 @@ const ImageSection = styled("div")({
 
 const TextSection = styled("div")({
   width: "100%",
-  height: "50%",
+  height: "55%",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -80,10 +80,14 @@ const EventTime = styled("div")(({ theme }) => ({
 }));
 
 const EventTitle = styled("div")(({ theme }) => ({
-  fontSize: "1.2rem",
+  fontSize: "clamp(1rem, 2.5vw, 1rem)", // Dynamically adjusts the font size
+  whiteSpace: "normal", // Allows wrapping
+  wordWrap: "break-word", // Ensures text wraps within the container
   fontWeight: "bold",
   color: "#000000",
   textAlign: "center",
+  overflowY: "auto", // Adds scroll if content overflows vertically
+  display: "block", // Normal block behavior to allow wrapping
 }));
 
 export default EventTile;

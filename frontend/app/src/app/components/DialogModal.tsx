@@ -29,6 +29,7 @@ const DialogModal = ({ open, event, handleClose }: { open: boolean, event: Event
       </ImageSection>
       <DialogContent>
         <DateSection>{formatDate(event?.startTime || "")} - {formatDate(event?.endTime || "")}</DateSection>
+        <TitleSection>{event?.host}</TitleSection>
         <TitleSection>{event?.title}</TitleSection>
         <DescriptionSection>{event?.description}</DescriptionSection>
       </DialogContent>

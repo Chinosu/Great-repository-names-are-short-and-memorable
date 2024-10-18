@@ -1,5 +1,7 @@
 "use client";
 
+import { events } from './eventsData';
+
 import React, { useState, useEffect } from "react";
 import { styled } from '@mui/system';
 import { Box, Stack } from "@mui/material";
@@ -25,26 +27,19 @@ export interface Event {
   title: string;
   startTime: string;
   endTime: string;  
-  description: string;  
+  description: string;
+  host: string;
   imageUrl?: string;  
 }
 
 // const SERVER_URL = 'http://events.chinosu.com';
+console.log(events)
 
 // Placeholder data for event types and societies
 const eventTypes = ['Workshop', 'Free BBQ', 'Social', 'Competition'];
 const societies = ['CSESoc', 'DataSoc', 'DevSoc', 'BSoc'];
 
 const bannerImgUrl = "https://www.events.unsw.edu.au/sites/default/files/styles/event_header_image/public/2024-07/Policymaker%20Summit%20Banner%20%28blue%29.png?itok=6Q3JIJfX";  // Replace with the actual URL
-const imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv-0bTXuP2zW4S23dYBit2kCp_Ha9FRdECcA&s";
-
-// Placeholder events
-const events: Event[] = [
-  { id: 1, title: "Event 1", startTime: "2024-10-18T10:00", endTime: "2024-10-18T11:00", description: "Description for Event 1", imageUrl: imgUrl },
-  { id: 2, title: "Event 2", startTime: "2024-10-19T12:00", endTime: "2024-10-19T13:30", description: "Description for Event 2", imageUrl: imgUrl },
-  { id: 3, title: "Event 3", startTime: "2024-10-20T09:00", endTime: "2024-10-20T10:00", description: "Description for Event 3", imageUrl: imgUrl },
-  { id: 4, title: "Event 4", startTime: "2024-10-21T13:00", endTime: "2024-10-21T14:00", description: "Description for Event 4", imageUrl: imgUrl },
-];
 
 const Home = () => {
   const [open, setOpen] = useState(false);
