@@ -6,7 +6,7 @@ NOTE: These are not directly used by SQLAlchemy
 
 from __future__ import annotations
 from datetime import datetime
-from typing import List
+from typing import List, Literal
 from enum import Enum
 
 from pydantic import BaseModel, ConfigDict, field_validator
@@ -31,15 +31,30 @@ class BaseEvent(BaseModel):
     start: datetime
     end: datetime
     location: str
-    tags: List[str] | str  # ideally `List[str]` but also csv `str` for db
+    tags: (
+        List[
+            Literal[
+                "Career Development and Education",
+                "Video Games",
+                "Online",
+                "Food",
+                "Weekly Occurrence",
+                "Competition",
+                "Sport",
+                "Socialising",
+                "Religious",
+            ]
+        ]
+        | str
+    )  # ideally list but also csv str for db
 
     @field_validator("tags")
     @classmethod
     def validate_tags(cls, value):
         if isinstance(value, str):
             value = [tag for tag in value.split(",") if tag]
-        if isinstance(value, list):
-            assert all(tag in tags for tag in value)
+        # if isinstance(value, list):
+        #     assert all(tag in tags for tag in value)
         return value
 
 

@@ -139,3 +139,21 @@ async def test_events_range():
             "event4",
             "event5",
         }
+
+
+@pytest.mark.asyncio(loop_scope="session")
+async def test_bad_tag():
+    async with connect() as app:
+        response = await app.post(
+            "/event",
+            json={
+                "title": "event1",
+                "description": "",
+                "host": "Bill",
+                "start": "2024-10-18T10:14:00Z",
+                "end": "2024-10-26T10:14:00Z",
+                "location": "Ainsworth",
+                "tags": ["food"],  # Has to be "Food" to be valid
+            },
+        )
+        assert response.status_code == 422
