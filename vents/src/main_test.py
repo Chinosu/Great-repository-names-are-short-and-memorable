@@ -30,13 +30,24 @@ async def test_hello_world():
 async def test_post_and_get_event():
     async with connect() as app:
         response = await app.post(
-            "/event", json={"data": "event", "when": "2"}
+            "/event",
+            json={
+                "title": "event1",
+                "description": "",
+                "host": "Bill",
+                "start": "2024-10-18T10:14:00Z",
+                "end": "2024-10-18T10:14:00Z",
+                "location": "Ainsworth",
+            },
         )
         assert response.status_code == 200
         assert "id" in response.json()
-        assert "when" in response.json()
-        assert response.json()["data"] == "event"
-        assert response.json()["sub_items"] == []
+        assert "start" in response.json()
+        assert "end" in response.json()
+        assert "description" in response.json()
+        assert "host" in response.json()
+        assert "location" in response.json()
+        assert response.json()["title"] == "event1"
 
         response = await app.get("/event")
         assert response.status_code == 200
@@ -44,23 +55,68 @@ async def test_post_and_get_event():
 
 
 @pytest.mark.asyncio(loop_scope="session")
-async def test_events_rage():
+async def test_events_range():
     async with connect() as app:
         response = await app.post(
-            "/event", json={"data": "event1", "when": "2024-10-16T10:30:00Z"}
+            "/event",
+            json={
+                "title": "event1",
+                "description": "",
+                "host": "Bill",
+                "start": "2024-10-18T10:14:00Z",
+                "end": "2024-10-26T10:14:00Z",
+                "location": "Ainsworth",
+            },
         )
+        assert response.status_code == 200
         response = await app.post(
-            "/event", json={"data": "event2", "when": "2024-10-18T010:14:00Z"}
+            "/event",
+            json={
+                "title": "event2",
+                "description": "",
+                "host": "Bill",
+                "start": "2024-10-18T10:14:00Z",
+                "end": "2024-10-26T10:14:00Z",
+                "location": "Ainsworth",
+            },
         )
+        assert response.status_code == 200
         response = await app.post(
-            "/event", json={"data": "event3", "when": "2024-10-17T03:14:00Z"}
+            "/event",
+            json={
+                "title": "event3",
+                "description": "",
+                "host": "",
+                "start": "2024-10-17T03:14:00Z",
+                "end": "2024-10-26T10:14:00Z",
+                "location": "Ainsworth",
+            },
         )
+        assert response.status_code == 200
         response = await app.post(
-            "/event", json={"data": "event4", "when": "2024-10-17T22:30:00Z"}
+            "/event",
+            json={
+                "title": "event4",
+                "description": "event4",
+                "host": "event4",
+                "start": "2024-10-17T22:30:00Z",
+                "end": "2024-10-26T10:14:00Z",
+                "location": "Ainsworth",
+            },
         )
+        assert response.status_code == 200
         response = await app.post(
-            "/event", json={"data": "event5", "when": "2024-10-17T10:30:00Z"}
+            "/event",
+            json={
+                "title": "event5",
+                "description": "event5",
+                "host": "event5",
+                "start": "2024-10-17T10:30:00Z",
+                "end": "2024-10-26T10:14:00Z",
+                "location": "Ainsworth",
+            },
         )
+        assert response.status_code == 200
 
         response = await app.get(
             "/event",
@@ -71,7 +127,7 @@ async def test_events_rage():
         )
         assert response.status_code == 200
         assert len(response.json()) == 3
-        assert {event["data"] for event in response.json()} == {
+        assert {event["title"] for event in response.json()} == {
             "event3",
             "event4",
             "event5",
