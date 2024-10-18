@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { styled } from '@mui/system';
-import { Event } from '../browse/page';  // Updated import for Event type
+import { Event } from '../page';  // Updated import for Event type
 import dayjs from 'dayjs';
 import { grey } from '@mui/material/colors';
 
@@ -31,7 +31,7 @@ const EventTile = ({ event, onClick }: { event: Event, onClick: () => void }) =>
 const Tile = styled("div")(({ theme }) => ({
   width: "100%",
   height: "auto",
-  aspectRatio: "3 / 2",
+  aspectRatio: "2 / 2",
   backgroundColor: "#ffffff",
   borderRadius: "8px",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",  // Added subtle shadow

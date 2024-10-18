@@ -26,7 +26,8 @@ const NavBar: React.FC = () => {
     <AppBar
       position="fixed"
       sx={{
-        borderBottom: `1px solid ${isDarkMode ? "#2c2c2c" : "#e0e0e0"}`,
+        // borderBottom: `1px solid ${isDarkMode ? "#2c2c2c" : "#e0e0e0"}`,
+        backgroundColor: isDarkMode ? "black" : "white",
         alignItems: "center",
         display: "flex",
         justifyContent: "space-between", // Align items on both ends
@@ -53,13 +54,13 @@ const NavBar: React.FC = () => {
           <HomeIcon />
         </IconButton> */}
 
-        <IconButton
+        {/* <IconButton
           aria-label="Browse events"
           active={path === "/browse"}
           href="/browse"
         >
           <GridIcon />
-        </IconButton>
+        </IconButton> */}
 
         {/* "Browse events" button with hover underline */}
         {/* <Button
@@ -90,7 +91,6 @@ const NavBar: React.FC = () => {
  * Styled AppBar component that defines the main navigation bar's appearance.
  */
 const AppBar = styled(MuiAppBar)<MuiAppBarProps>(({ theme }) => ({
-  background: 'white',
   color: theme.palette.getContrastText(theme.palette.background.default),
   boxShadow: "none",
   display: "flex",

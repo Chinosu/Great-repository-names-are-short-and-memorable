@@ -23,16 +23,22 @@ const Banner: React.FC<BannerProps> = ({ imageUrl, title, subtitle }) => {
 
 // Styled components for the banner
 const BannerContainer = styled('div')({
-  position: 'relative',
-  width: '100%',
-  height: '400px',  // Adjust the height as needed
-  overflow: 'hidden',
-});
+    position: 'relative',
+    width: '100%',
+    height: '600px',  // Adjust the height if needed
+    overflow: 'hidden',
+    padding: '0 60px',  // Horizontal padding for spacing
+    borderBottomLeftRadius: '20px',
+    borderBottomRightRadius: '20px',
+    boxSizing: 'border-box',  // Ensure padding is included in width
+  });
 
 const BannerImage = styled('img')({
   width: '100%',
   height: '100%',
   objectFit: 'cover',
+  borderBottomLeftRadius: '20px',  // Match the same radius here
+  borderBottomRightRadius: '20px',  // Match the same radius here
 });
 
 const BannerText = styled('div')({
