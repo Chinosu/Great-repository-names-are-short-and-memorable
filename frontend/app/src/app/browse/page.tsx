@@ -212,7 +212,7 @@ const Page = () => {
               size={12 / 7}
               key={dayIndex}
               sx={{
-                padding: '10px',
+                padding: '2px',
                 textAlign: 'center',
               }}
             >
