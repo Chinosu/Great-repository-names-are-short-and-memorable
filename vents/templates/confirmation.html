@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FastAPI + HTMX Demo</title>
+    <script src="https://unpkg.com/htmx.org"></script>
+</head>
+<body>
+    <h1>Confirm?</h1>
+    <form>
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title"><br>
+
+        <label for="description">Description:</label><br>
+        <input type="text" id="description" name="description"><br>
+
+        <label for="host">Host:</label><br>
+        <input type="text" id="host" name="host"><br>
+
+        <label for="start">Start:</label><br>
+        <input type="datetime-local" id="start" name="start"><br>
+
+        <label for="end">End:</label><br>
+        <input type="datetime-local" id="end" name="end"><br>
+
+        <label for="location">Location:</label><br>
+        <input type="text" id="location" name="location"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

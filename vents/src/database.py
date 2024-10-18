@@ -6,23 +6,14 @@ Reference:
 from __future__ import annotations
 
 from uuid import uuid4
-from random import randint
-import asyncio
 from datetime import datetime
-from typing import List
 
-from sqlalchemy import ForeignKey
-from sqlalchemy import func
-from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncAttrs
 from sqlalchemy.ext.asyncio import async_sessionmaker
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
-from sqlalchemy.orm import relationship
-from sqlalchemy.orm import selectinload
 
 
 class Base(AsyncAttrs, DeclarativeBase):
@@ -41,6 +32,7 @@ class Event(Base):
     start: Mapped[datetime]
     end: Mapped[datetime]
     location: Mapped[str]
+    tags: Mapped[str]  # comma separated strings, i.e. `"Food,Online"`
 
 
 async def reset():

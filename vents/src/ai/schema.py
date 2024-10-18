@@ -3,7 +3,7 @@ Define schemas for Google Generative AI in Python code. `as_str`
 returns all the class definitions in this file as a string.
 """
 
-from typing import TypedDict
+from typing import Literal, TypedDict
 from datetime import datetime
 from pathlib import Path
 from contextlib import suppress
@@ -18,6 +18,19 @@ class Event(TypedDict):
     start: datetime
     end: datetime
     location: str
+    tags: list[
+        Literal[
+            "Career Development and Education",
+            "Video Games",
+            "Online",
+            "Food",
+            "Weekly Occurrence",
+            "Competition",
+            "Sport",
+            "Socialising",
+            "Religious",
+        ]
+    ]
 
 
 result = []

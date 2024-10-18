@@ -25,3 +25,10 @@ def add_item(request: Request, item: str = Form(...)):
     return templates.TemplateResponse(
         "partials/item.html", {"request": request, "item": item}
     )
+
+
+@router.get("/dev", response_class=HTMLResponse)
+def dev(request: Request):
+    return templates.TemplateResponse(
+        "confirmation.html", {"request": request}
+    )

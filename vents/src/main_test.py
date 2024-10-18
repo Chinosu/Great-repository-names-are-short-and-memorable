@@ -38,6 +38,7 @@ async def test_post_and_get_event():
                 "start": "2024-10-18T10:14:00Z",
                 "end": "2024-10-18T10:14:00Z",
                 "location": "Ainsworth",
+                "tags": ["Food", "Sport"],
             },
         )
         assert response.status_code == 200
@@ -47,6 +48,7 @@ async def test_post_and_get_event():
         assert "description" in response.json()
         assert "host" in response.json()
         assert "location" in response.json()
+        assert "tags" in response.json()
         assert response.json()["title"] == "event1"
 
         response = await app.get("/event")
@@ -66,6 +68,7 @@ async def test_events_range():
                 "start": "2024-10-18T10:14:00Z",
                 "end": "2024-10-26T10:14:00Z",
                 "location": "Ainsworth",
+                "tags": ["Food", "Socialising"],
             },
         )
         assert response.status_code == 200
@@ -78,6 +81,7 @@ async def test_events_range():
                 "start": "2024-10-18T10:14:00Z",
                 "end": "2024-10-26T10:14:00Z",
                 "location": "Ainsworth",
+                "tags": ["Food", "Socialising"],
             },
         )
         assert response.status_code == 200
@@ -90,6 +94,7 @@ async def test_events_range():
                 "start": "2024-10-17T03:14:00Z",
                 "end": "2024-10-26T10:14:00Z",
                 "location": "Ainsworth",
+                "tags": ["Food", "Socialising"],
             },
         )
         assert response.status_code == 200
@@ -102,6 +107,7 @@ async def test_events_range():
                 "start": "2024-10-17T22:30:00Z",
                 "end": "2024-10-26T10:14:00Z",
                 "location": "Ainsworth",
+                "tags": ["Food", "Socialising"],
             },
         )
         assert response.status_code == 200
@@ -114,6 +120,7 @@ async def test_events_range():
                 "start": "2024-10-17T10:30:00Z",
                 "end": "2024-10-26T10:14:00Z",
                 "location": "Ainsworth",
+                "tags": ["Food", "Socialising"],
             },
         )
         assert response.status_code == 200
@@ -132,3 +139,21 @@ async def test_events_range():
             "event4",
             "event5",
         }
+
+
+@pytest.mark.asyncio(loop_scope="session")
+async def test_bad_tag():
+    async with connect() as app:
+        response = await app.post(
+            "/event",
+            json={
+                "title": "event1",
+                "description": "",
+                "host": "Bill",
+                "start": "2024-10-18T10:14:00Z",
+                "end": "2024-10-26T10:14:00Z",
+                "location": "Ainsworth",
+                "tags": ["food"],  # Has to be "Food" to be valid
+            },
+        )
+        assert response.status_code == 422
