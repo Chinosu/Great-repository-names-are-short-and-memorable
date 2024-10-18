@@ -61,6 +61,24 @@ const NavBar: React.FC = () => {
         >
           <GridIcon />
         </IconButton>
+
+        {/* "Browse events" button with hover underline */}
+        {/* <Button
+          href="/browse"
+          sx={{
+            textTransform: "none", // Keep the text in normal case
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: isDarkMode ? "#ffffff" : "#000000", // Dynamic color based on theme
+            '&:hover': {
+              textDecoration: 'underline',
+              backgroundColor: 'transparent', // Prevent background on hover
+            },
+          }}
+        >
+          Browse events
+        </Button> */}
+
         <IconButton active={isDarkMode} onClick={toggleDarkMode}>
           <DarkMode />
         </IconButton>
