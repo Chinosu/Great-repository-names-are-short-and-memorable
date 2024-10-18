@@ -28,7 +28,7 @@ const NavBar: React.FC = () => {
       sx={{
         // borderBottom: `1px solid ${isDarkMode ? "#2c2c2c" : "#e0e0e0"}`,
         // backgroundColor: isDarkMode ? "rgba(0, 0, 0, 0.5)" : "rgba(255, 255, 255, 0.5)", // 50% transparency
-        backgroundColor: isDarkMode ? "black" : "#F8F8FB",
+        backgroundColor: isDarkMode ? "#0d0d0d" : "#F8F8FB",
         alignItems: "center",
         display: "flex",
         justifyContent: "space-between", // Align items on both ends
