@@ -22,6 +22,7 @@ import dayjs, { Dayjs } from "dayjs";  // Import Dayjs
 import { Main } from "../page";
 import DialogModal from '../components/DialogModal';  
 import DayColumn from '../components/DayColumn';  
+import Banner from "../components/Banner";
 
 export interface Event {
   id: number;
@@ -36,6 +37,7 @@ export interface Event {
 const eventTypes = ['Workshop', 'Free BBQ', 'Social', 'Competition'];
 const societies = ['CSESoc', 'DataSoc', 'DevSoc', 'BSoc'];
 
+const bannerImgUrl = "https://www.events.unsw.edu.au/sites/default/files/styles/event_header_image/public/2024-07/Policymaker%20Summit%20Banner%20%28blue%29.png?itok=6Q3JIJfX";  // Replace with the actual URL
 const imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv-0bTXuP2zW4S23dYBit2kCp_Ha9FRdECcA&s";
 
 // Placeholder events
@@ -126,6 +128,9 @@ const Page = () => {
 
   return (
     <Main>
+      {/* Banner component */}
+      <Banner imageUrl={bannerImgUrl} title="Made for Those Who Do" subtitle="Subtitle or additional information here" />
+
       <Container maxWidth={false}>
         {/* Current month display */}
         {/* <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>{currentMonth}</h1> */}
@@ -212,7 +217,7 @@ const Page = () => {
               size={12 / 7}
               key={dayIndex}
               sx={{
-                padding: '2px',
+                padding: '6px',
                 textAlign: 'center',
               }}
             >
